@@ -20,7 +20,7 @@ router.get("/alluser", getAllUser);
 router.post("/fund",fundWallet)
 router.post("/transaction", transaction)
 router.get("/user-transaction", getTransactionsForUser)
-router.get('/refresh', refresh)
+router.post('/refresh', refresh)
 
 
 export default router;
