@@ -19,6 +19,9 @@ const userSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
+    nickname: {
+        type: String,
+    },
     age: {
         type: String,
     },

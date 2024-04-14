@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTransactionsForUser = exports.transaction = exports.fundWallet = exports.getAllUser = exports.getUserProfile = exports.authUser = exports.registerUser = void 0;
+exports.refresh = exports.getTransactionsForUser = exports.transaction = exports.fundWallet = exports.getAllUser = exports.getUserProfile = exports.authUser = exports.registerUser = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const Usermodel_1 = __importDefault(require("../models/Usermodel"));
 const generateToken_1 = require("../utils/generateToken");
@@ -81,6 +81,17 @@ const authUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.authUser = authUser;
+const refresh = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { phone } = req.body;
+    try {
+        const user = yield Usermodel_1.default.findOne({ phone });
+        res.status(200).json({ user: user });
+    }
+    catch (error) {
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+exports.refresh = refresh;
 const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // @ts-ignore

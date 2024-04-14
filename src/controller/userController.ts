@@ -76,6 +76,18 @@ const authUser = async (req: Request, res: Response) => {
   }
 };
 
+const refresh = async (req: Request, res: Response) => {
+  const { phone } = req.body;
+
+  try {
+    const user = await User.findOne({ phone });
+
+    res.status(200).json({ user: user });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const getUserProfile = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
@@ -174,7 +186,6 @@ const getTransactionsForUser = async (req: Request, res: Response) => {
   try {
     const { phoneNumber } = req.body;
 
-
     // Find the user by phone number to get their _id
     const user = await User.findOne({ phone: phoneNumber });
 
@@ -204,4 +215,5 @@ export {
   fundWallet,
   transaction,
   getTransactionsForUser,
+  refresh
 };

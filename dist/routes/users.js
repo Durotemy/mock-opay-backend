@@ -14,4 +14,5 @@ router.get("/alluser", userController_1.getAllUser);
 router.post("/fund", userController_1.fundWallet);
 router.post("/transaction", userController_1.transaction);
 router.get("/user-transaction", userController_1.getTransactionsForUser);
+router.get('/refresh', userController_1.refresh);
 exports.default = router;
