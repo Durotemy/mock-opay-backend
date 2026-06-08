@@ -17,7 +17,7 @@ const registerUser = async (req: Request, res: Response) => {
         .status(422)
         .json({ error: "Email or Phone number already exists" });
 
-    const user = await new User({
+    const user = new User({
       name,
       email,
       address,
@@ -27,7 +27,7 @@ const registerUser = async (req: Request, res: Response) => {
       age,
     });
 
-    user.save();
+    await user.save();
     if (user) {
       const userIdString = user._id.toString();
 
@@ -215,5 +215,5 @@ export {
   fundWallet,
   transaction,
   getTransactionsForUser,
-  refresh
+  refresh,
 };
