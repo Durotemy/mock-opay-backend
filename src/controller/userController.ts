@@ -7,6 +7,8 @@ import Transaction from "../models/TransactionModel";
 const registerUser = async (req: Request, res: Response) => {
   const { name, email, address, phone, password, gender, age } = req.body;
 
+  console.log("req.body", req.body);
+
   try {
     const userExist = await User.findOne({
       $or: [{ email: email }, { phone: phone }],
@@ -120,7 +122,9 @@ const getAllUser = async (req: Request, res: Response) => {
 const fundWallet = async (req: Request, res: Response) => {
   try {
     const { phone, amount } = req.body;
+    console.log("FUND ROUTE HIT");
     const user = await User.findOne({ phone });
+    console.log("useruseruser", user);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -128,6 +132,8 @@ const fundWallet = async (req: Request, res: Response) => {
 
     user.balance += parseInt(amount);
     await user.save();
+
+    console.log("user saved", user);
 
     return res
       .status(200)
