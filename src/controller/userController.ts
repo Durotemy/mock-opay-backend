@@ -83,9 +83,11 @@ const refresh = async (req: Request, res: Response) => {
 
   try {
     const user = await User.findOne({ phone });
+    console.log("user for refresh ", user);
 
     res.status(200).json({ user: user });
   } catch (error) {
+    console.log("hshshshshshshs", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -122,9 +124,7 @@ const getAllUser = async (req: Request, res: Response) => {
 const fundWallet = async (req: Request, res: Response) => {
   try {
     const { phone, amount } = req.body;
-    console.log("FUND ROUTE HIT");
     const user = await User.findOne({ phone });
-    console.log("useruseruser", user);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -132,8 +132,6 @@ const fundWallet = async (req: Request, res: Response) => {
 
     user.balance += parseInt(amount);
     await user.save();
-
-    console.log("user saved", user);
 
     return res
       .status(200)
